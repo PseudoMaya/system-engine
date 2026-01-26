@@ -3,7 +3,6 @@
 
 **Fecha**: 2026-01-26  
 **Dominio**: Investigación Documental / Research Methodology  
-**Proyecto**: Generación de Methodology usando System Engine v2.0
 
 ---
 
