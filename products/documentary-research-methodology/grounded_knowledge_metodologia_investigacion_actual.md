@@ -2,7 +2,7 @@
 
 **Marco de Trabajo para Investigación Rigurosa y Estandarizada**
 
-**Metodología de Investigación Documental - Radius**
+**Metodología de Investigación Documental**
 
 #### **METADATOS**
 
