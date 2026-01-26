@@ -300,7 +300,7 @@ Durante Fase 2:
 ## Soporte y Contacto
 
 **Autor**: Oscar Maya  
-**Email**: oscarmaya23@gmail.com  
+**Email**: oscar.ernesto.maya@gmail.com  
 **Proyecto**: System Engine (GCD)
 
 **Documentación adicional**:
@@ -311,4 +311,4 @@ Durante Fase 2:
 ---
 
 **Última actualización**: 2026-01-25  
-**Licencia**: [Por definir según decisión del autor]
+**Licencia**: [Por definir]
