@@ -1,0 +1,334 @@
+# Meta-Engine v2.0 - Guía de Refinación
+
+## Documento de Acompañamiento
+**Versión**: 2.0.0-alpha  
+**Fecha**: 2026-01-25  
+**Proyecto**: System Engine (Materialización del Programa GCD)  
+
+---
+
+## 1. Resumen Ejecutivo
+
+El **meta_engine v2.0** es una refinación completa del v0.1.0, incorporando aprendizajes empíricos del primer caso de uso exitoso: **RSAF (Radius Solution Architecture Framework)**.
+
+### Cambios Principales vs v0.1.0
+
+| Aspecto | v0.1.0 | v2.0 |
+|---------|--------|------|
+| **Herencia** | Implícita, no especificada | Protocolo explícito de 3 niveles |
+| **Constraints** | Sin clasificación | Sistema [?] [✓] [⚓] para hipótesis |
+| **Stress Test** | Vago ("simulación de escenarios") | 5 fitness criteria medibles |
+| **Construction Diary** | No existía | Obligatorio y público |
+| **Anti-Drift** | Presente pero básico | Mejorado con false positive handling |
+| **Conflict Resolution** | No existía | Protocolo de 3 pasos |
+| **Output Specification** | Implícita | Garantiza binomio explícitamente |
+
+---
+
+## 2. Arquitectura por Capas
+
+El YAML está organizado en **6 capas conceptuales**:
+
+```
+LAYER 1: Metadata + Philosophical Foundation
+    ↓
+LAYER 2: Core Governance (inheritance, conflicts)
+    ↓
+LAYER 3: Process Lifecycle (5 fases refinadas)
+    ↓
+LAYER 4: Interaction Protocol (anti-drift, feedback)
+    ↓
+LAYER 5: Input Analysis Logic (validación, conflictos)
+    ↓
+LAYER 6: Interaction Parameters (tono, formato, idioma)
+```
+
+Cada capa construye sobre la anterior, creando un sistema coherente.
+
+---
+
+## 3. Innovaciones Críticas
+
+### 3.1 Inheritance Protocol (Layer 2)
+
+**Problema que resuelve**: En v0.1.0, no estaba claro qué elementos del padre debían heredarse al generar un Operational Engine hijo.
+
+**Solución**: Clasificación en 3 niveles:
+
+```yaml
+mandatory_inheritance:      # NO negociable (ej: anti-drift, gate protocol)
+contextual_specialization:  # DEBE adaptarse (ej: command_vocabulary)
+never_inherit:              # Único por generación (ej: version, current_project)
+```
+
+**Impacto**: El `rsaf_engine_v1.yaml` NO heredó anti-drift (error detectado). v2.0 lo hace obligatorio.
+
+---
+
+### 3.2 Hypothesis Status Tracking (Layer 3, Step 2)
+
+**Problema que resuelve**: No todos los supuestos tienen el mismo peso epistémico.
+
+**Solución**: Símbolos visuales para clasificar constraints:
+
+- `[?]` **Tentative**: Supuesto sin validar
+- `[✓]` **Accepted**: Usuario validó con CHECK
+- `[⚓]` **Bisagra**: Anclado en Grounded Knowledge, no negociable
+
+**Ejemplo de uso**:
+```
+CONSTRAINTS PROPUESTOS:
+[⚓] El framework debe ser tecnológicamente agnóstico (fuente: paper X, sección 3)
+[✓] Máximo 6 conceptos primarios (Usuario confirmó en iteración 3)
+[?] Asumimos usuarios con 3+ años de experiencia en el dominio
+```
+
+**Impacto**: Previene construir sobre "arena conceptual".
+
+---
+
+### 3.3 Fitness Criteria Opcionales (Layer 3, Step 4)
+
+**Problema que resuelve**: En v0.1.0, Step 4 decía "simulación de escenarios" sin criterios claros.
+
+**Solución**: 5 dimensiones de calidad con guidance por tipo de Output:
+
+| Criterio | Framework Design | Methodology Design |
+|----------|------------------|--------------------|
+| **Usability** | Opcional | Crítico ⭐ |
+| **Completeness** | Crítico ⭐ | Crítico ⭐ |
+| **Coherence** | Crítico ⭐ | Opcional |
+| **Evolvability** | Crítico ⭐ | Opcional |
+| **Resilience** | Crítico ⭐ | Crítico ⭐ |
+
+**Impacto**: Usuario elige 2+ criterios según contexto, no todos obligatorios.
+
+---
+
+### 3.4 Construction Diary Público (Layer 3, Step 3)
+
+**Problema que resuelve**: El conocimiento del proceso iterativo se perdía.
+
+**Solución**: Registro obligatorio de:
+- Decisiones de diseño y rationale
+- Conceptos emergentes no anticipados
+- Iteraciones por sección
+- Dead ends intentados
+- Intervenciones del Usuario
+
+**Visibilidad**: **PÚBLICO** - Se entrega junto al binomio Output.
+
+**Impacto**: Futuras materializaciones aprenden de patrones exitosos y errores documentados.
+
+---
+
+### 3.5 Anti-Drift Mejorado (Layer 4)
+
+**Problema que resuelve**: Conversaciones largas tienden a desviarse del objetivo.
+
+**Solución**: Detección de 3 tipos de drift:
+1. **Conversational drift**: 3+ intercambios sin mencionar el proyecto
+2. **Scope creep**: Usuario amplía alcance original
+3. **Contradiction with bisagras**: Viola constraints no negociables
+
+**Protocolo de intervención**:
+```
+🔔 RESUMEN DE SITUACIÓN
+
+**Proyecto Actual**: [current_project]
+**Fase Actual**: [Step X]
+**Observación**: [Desviación detectada]
+
+Opciones:
+(A) Retomar objetivo original
+(B) Redefinir alcance → REVISITAR FASE 1
+(C) Ajustar constraints → REVISITAR FASE 2
+```
+
+**False Positive Handling**: Si Usuario justifica que NO es drift, aceptar y registrar.
+
+---
+
+### 3.6 Conflict Detection Engine (Layer 5)
+
+**Problema que resuelve**: No todos los conflictos son obvios inicialmente.
+
+**Solución**: 4 tipos de conflictos con detección automática:
+
+1. **Direct Contradiction**: Fuentes dicen cosas opuestas
+2. **Constraint Impossibility**: Dos constraints no pueden coexistir
+3. **Scope-Philosophy Mismatch**: Background contradice Grounded Knowledge
+4. **Implicit Assumption Conflict**: Supuesto [?] contradice evidencia
+
+**Severity routing**:
+- HIGH → Bloquea progreso hasta resolver
+- MEDIUM → Presenta en siguiente feedback_loop
+- LOW → Registra en Construction Diary como "tension"
+
+---
+
+## 4. Flujo de Uso Típico
+
+### Fase de Preparación
+1. Usuario documenta **Background & Rationale** (4 preguntas clave)
+2. Usuario recopila **Grounded Knowledge** clasificado (primary/secondary/supporting)
+3. Usuario decide: ¿Framework o Methodology?
+
+### Ejecución del Meta-Engine
+
+```
+STEP 1: Context Ingestion
+├─ Sistema valida que inputs sean completos
+├─ Si falta algo → STOP automático
+└─ Usuario emite CHECK para avanzar
+
+STEP 2: Foundations
+├─ Sistema propone 3-7 constraints
+├─ Clasifica cada uno: [?] [✓] [⚓]
+├─ Usuario valida/ajusta
+└─ CHECK para avanzar
+
+STEP 3: Drafting (iterativo)
+├─ Sistema propone estructura (skeleton)
+├─ Usuario: CHECK o ajustar
+├─ Construcción sección por sección
+│   ├─ Feedback loop: (A) (B) (C) (D)
+│   └─ Si emerge concepto nuevo → evaluar si REVISITAR FASE 2
+├─ Construction Diary registra todo
+└─ CHECK cuando satisfecho
+
+STEP 4: Stress Testing
+├─ Usuario selecciona 2-5 fitness criteria
+├─ Sistema genera escenarios adversariales
+├─ Si falla → REVISITAR FASE 3 o documentar limitation
+└─ CHECK para finalizar
+
+STEP 5: Finalization
+├─ Sistema genera AMBOS componentes:
+│   ├─ Conceptual Asset (.md)
+│   └─ Operational Engine (.yaml)
+├─ Sistema consolida Construction Diary
+└─ Entrega los 3 archivos al Usuario
+```
+
+---
+
+## 5. Comandos del Usuario
+
+### Comandos de Control
+
+| Comando | Sintaxis | Efecto |
+|---------|----------|--------|
+| **CHECK** | `CHECK` | Valida fase actual, avanza al siguiente Gate |
+| **REVISITAR FASE** | `REVISITAR FASE 2` | Regresa a fase anterior manteniendo aprendizaje |
+| **CONSOLIDAR** | `CONSOLIDAR` | Genera snapshot temporal del Output |
+| **RESOLVE** | `RESOLVE A` | Resuelve conflicto presentado (opciones A/B/C) |
+| **STATUS** | `STATUS` | Muestra estado actual del sistema |
+
+### Comandos de Dominio
+
+Los Operational Engines hijos pueden agregar comandos específicos (ej: ANALYZE, MAP, SYNTHESIZE en RSAF), pero **nunca pueden reemplazar** los comandos base.
+
+---
+
+## 6. Garantías del Sistema
+
+### Lo que el meta_engine v2.0 GARANTIZA:
+
+✅ **Trazabilidad completa**: Construction Diary documenta todas las decisiones  
+✅ **Coherencia recursiva**: Inheritance protocol asegura ADN consistente  
+✅ **Binomio siempre**: Output Specification fuerza generar Conceptual Asset + Operational Engine  
+✅ **Calidad medible**: Fitness Criteria proveen rúbrica explícita  
+✅ **Anti-degradación**: Anti-Drift evita desviación del objetivo  
+
+### Lo que el meta_engine v2.0 NO HACE:
+
+❌ **Automatización total**: Requiere participación activa del Usuario  
+❌ **Velocidad instantánea**: Es un proceso iterativo, no un generador mágico  
+❌ **Decisiones por ti**: El humano aporta juicio y validación ética  
+❌ **Contenido sin fuentes**: Sin Grounded Knowledge, no genera nada  
+
+---
+
+## 7. Comparación: v0.1.0 → v2.0
+
+### Caso: Construcción del RSAF
+
+**Con v0.1.0**:
+- Proceso iterativo exitoso pero NO documentado
+- `rsaf_engine_v1.yaml` NO heredó anti-drift (error)
+- Fitness criteria aplicados intuitivamente (sin guía)
+- Decisiones de diseño perdidas (no hay Construction Diary)
+
+**Con v2.0 (hipotético)**:
+- Proceso documentado en CONSTRUCTION_LOG.md público
+- `rsaf_engine_v1.yaml` HABRÍA heredado anti-drift obligatoriamente
+- Fitness criteria seleccionados conscientemente (Coherence + Evolvability + Resilience)
+- Decisiones trazables: "Por qué 6 conceptos y no 10" documentado
+
+**Resultado esperado**: Output de misma calidad, pero con **proceso transferible** a otros usuarios.
+
+---
+
+## 8. Próximos Pasos
+
+### Para el Proyecto System Engine
+
+1. **Validar v2.0 en segundo caso de uso**
+   - Generar Methodology (no Framework) para probar mode_selector
+   - Documentar diferencias de proceso vs RSAF
+
+2. **Crear biblioteca de patrones**
+   - Compilar Construction Logs de múltiples materializaciones
+   - Identificar patrones recurrentes de iteración
+
+3. **Test de transferibilidad**
+   - Dar v2.0 a usuario sin contexto del GCD
+   - Evaluar si puede generar Output coherente
+
+### Para la Comunidad GCD
+
+1. **Compartir RSAF Construction Story**
+   - Reconstruir el proceso de construcción del RSAF
+   - Publicar como caso de estudio fundacional
+
+2. **Retroalimentar al Programa GCD**
+   - Validar si las materializaciones cumplen principios wittgensteinianos
+   - Proponer ajustes al marco filosófico si emergen tensiones
+
+---
+
+## 9. Filosofía de Evolución
+
+> *"El lenguaje es uso en contexto."* — Wittgenstein
+
+Este meta_engine v2.0 NO es un producto terminado. Es una **materialización viva** del Programa GCD que evolucionará conforme:
+
+1. Más Outputs sean generados
+2. Más patrones sean identificados
+3. Más usuarios contribuyan sus Construction Logs
+
+**Versiones futuras incorporarán**:
+- Patrones de iteración documentados
+- Mejoras al conflict_resolution basadas en casos reales
+- Nuevos fitness criteria descubiertos en la práctica
+- Refinamientos a la inheritance_protocol
+
+---
+
+## 10. Contacto y Contribuciones
+
+**Autor**: Oscar Maya  
+**Email**: oscar.ernesto.maya@gmail.com  
+**Proyecto**: System Engine (GCD)  
+
+Si usas este meta_engine para generar un Output:
+1. Considera compartir tu CONSTRUCTION_LOG como caso de estudio
+2. Documenta patrones exitosos o limitaciones encontradas
+3. Contribuye a la evolución del Programa GCD
+
+---
+
+**Fin del documento de acompañamiento**
+
+---
